@@ -1,0 +1,218 @@
+[
+  {
+    "id": 1,
+    "nombre": "Kit Tecnología Corporativa",
+    "tipo": "kit",
+    "categoriaPrecio": "entrada",
+    "precio": 72000,
+    "imagen": "/images/kit-tecnologia-entrada.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "Kit Bienestar Diario",
+    "tipo": "kit",
+    "categoriaPrecio": "standard",
+    "precio": 120000,
+    "imagen": "/images/kit-bienestar-premium.jpg"
+  },
+  {
+    "id": 3,
+    "nombre": "Kit Productividad Ejecutiva",
+    "tipo": "kit",
+    "categoriaPrecio": "vip",
+    "precio": 160000,
+    "imagen": "/images/kit-productividad-vip.jpg"
+  },
+  {
+    "id": 4,
+    "nombre": "Ancheta Brindis Corporativo",
+    "tipo": "ancheta",
+    "categoriaPrecio": "entrada",
+    "precio": 72000,
+    "imagen": "/images/ancheta-brindis-entrada.jpg"
+  },
+  {
+    "id": 5,
+    "nombre": "Ancheta Momento de Armonía",
+    "tipo": "ancheta",
+    "categoriaPrecio": "standard",
+    "precio": 120000,
+    "imagen": "/images/ancheta-armonia-premium.jpg"
+  },
+  {
+    "id": 6,
+    "nombre": "Ancheta Familiar de Lujo",
+    "tipo": "ancheta",
+    "categoriaPrecio": "vip",
+    "precio": 160000,
+    "imagen": "/images/ancheta-familiar-vip.jpg"
+  },
+  {
+    "id": 7,
+    "nombre": "Combo Personalizado Tecnología",
+    "tipo": "personalizado",
+    "categoriaPrecio": "entrada",
+    "precio": 72000,
+    "imagen": "/images/personalizado-tecnologia-entrada.jpg"
+  },
+  {
+    "id": 8,
+    "nombre": "Combo Bienestar Empresarial",
+    "tipo": "personalizado",
+    "categoriaPrecio": "standard",
+    "precio": 120000,
+    "imagen": "/images/personalizado-bienestar-premium.jpg"
+  },
+  {
+    "id": 9,
+    "nombre": "Combo Productividad Élite",
+    "tipo": "personalizado",
+    "categoriaPrecio": "vip",
+    "precio": 160000,
+    "imagen": "/images/personalizado-productividad-vip.jpg"
+  },
+  {
+    "id": 10,
+    "nombre": "Kit Innovador Express",
+    "tipo": "kit",
+    "categoriaPrecio": "entrada",
+    "precio": 64000,
+    "imagen": "/images/kit-innovador-express.jpg"
+  },
+  {
+    "id": 11,
+    "nombre": "Kit Relax de Oficina",
+    "tipo": "kit",
+    "categoriaPrecio": "standard",
+    "precio": 112000,
+    "imagen": "/images/kit-relax-oficina.jpg"
+  },
+  {
+    "id": 12,
+    "nombre": "Kit Productividad Premium",
+    "tipo": "kit",
+    "categoriaPrecio": "vip",
+    "precio": 152000,
+    "imagen": "/images/kit-productividad-premium.jpg"
+  },
+  {
+    "id": 13,
+    "nombre": "Ancheta Brindis Selecto",
+    "tipo": "ancheta",
+    "categoriaPrecio": "standard",
+    "precio": 104000,
+    "imagen": "/images/ancheta-brindis-selecto.jpg"
+  },
+  {
+    "id": 14,
+    "nombre": "Ancheta Dulce Armonía",
+    "tipo": "ancheta",
+    "categoriaPrecio": "entrada",
+    "precio": 60000,
+    "imagen": "/images/ancheta-dulce-armonia.jpg"
+  },
+  {
+    "id": 15,
+    "nombre": "Ancheta Familiar Premium",
+    "tipo": "ancheta",
+    "categoriaPrecio": "standard",
+    "precio": 112000,
+    "imagen": "/images/ancheta-familiar-premium.jpg"
+  },
+  {
+    "id": 16,
+    "nombre": "Combo Personalizado Tech Gift",
+    "tipo": "personalizado",
+    "categoriaPrecio": "vip",
+    "precio": 144000,
+    "imagen": "/images/personalizado-tech-gift.jpg"
+  },
+  {
+    "id": 17,
+    "nombre": "Combo Relax Empresarial",
+    "tipo": "personalizado",
+    "categoriaPrecio": "entrada",
+    "precio": 68000,
+    "imagen": "/images/personalizado-relax-entrada.jpg"
+  },
+  {
+    "id": 18,
+    "nombre": "Combo Éxito Ejecutivo",
+    "tipo": "personalizado",
+    "categoriaPrecio": "standard",
+    "precio": 104000,
+    "imagen": "/images/personalizado-exito-premium.jpg"
+  },
+  {
+    "id": 19,
+    "nombre": "Kit Corporativo Digital",
+    "tipo": "kit",
+    "categoriaPrecio": "standard",
+    "precio": 116000,
+    "imagen": "/images/kit-corporativo-digital.jpg"
+  },
+  {
+    "id": 20,
+    "nombre": "Kit Armonía Empresarial",
+    "tipo": "kit",
+    "categoriaPrecio": "entrada",
+    "precio": 56000,
+    "imagen": "/images/kit-armonia-entrada.jpg"
+  },
+  {
+    "id": 21,
+    "nombre": "Kit Productividad Total",
+    "tipo": "kit",
+    "categoriaPrecio": "vip",
+    "precio": 156000,
+    "imagen": "/images/kit-productividad-total.jpg"
+  },
+  {
+    "id": 22,
+    "nombre": "Ancheta Celebración Empresarial",
+    "tipo": "ancheta",
+    "categoriaPrecio": "vip",
+    "precio": 160000,
+    "imagen": "/images/ancheta-celebracion.jpg"
+  },
+  {
+    "id": 23,
+    "nombre": "Ancheta Natural Armonía",
+    "tipo": "ancheta",
+    "categoriaPrecio": "standard",
+    "precio": 108000,
+    "imagen": "/images/ancheta-natural-premium.jpg"
+  },
+  {
+    "id": 24,
+    "nombre": "Ancheta Familiar Tradición",
+    "tipo": "ancheta",
+    "categoriaPrecio": "entrada",
+    "precio": 68000,
+    "imagen": "/images/ancheta-familiar-tradicion.jpg"
+  },
+  {
+    "id": 25,
+    "nombre": "Combo Personalizado Digital Pro",
+    "tipo": "personalizado",
+    "categoriaPrecio": "standard",
+    "precio": 120000,
+    "imagen": "/images/personalizado-digital-pro.jpg"
+  },
+  {
+    "id": 26,
+    "nombre": "Combo Bienestar Premium Pack",
+    "tipo": "personalizado",
+    "categoriaPrecio": "vip",
+    "precio": 160000,
+    "imagen": "/images/personalizado-bienestar-vip.jpg"
+  },
+  {
+    "id": 27,
+    "nombre": "Combo Productividad Corporativa",
+    "tipo": "personalizado",
+    "categoriaPrecio": "entrada",
+    "precio": 72000,
+    "imagen": "/images/personalizado-productividad-entrada.jpg"
+  }
+]
