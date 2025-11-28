@@ -1,0 +1,54 @@
+/* ============================================
+   CAMBIOS PARA APLICAR A index.css
+   ============================================ */
+
+/* CAMBIO 1: Agregar a .feature-card (línea 484, después de box-shadow) */
+  text-decoration: none; /* Quita el subrayado del enlace */
+
+/* CAMBIO 2: Agregar a .feature-card__name (después de font-family: var(--font-heading);) */
+  text-decoration: none; /* Quita el subrayado del nombre del producto */
+  transition: text-decoration 0.3s ease; /* Transición suave para el subrayado */
+
+/* CAMBIO 3: Agregar después de .feature-card__name { ... } */
+/* Efecto hover solo en desktop para mostrar que es clickeable */
+@media (min-width: 768px) {
+  .feature-card:hover .feature-card__name {
+    text-decoration: underline; /* Muestra el subrayado solo en hover en desktop */
+  }
+}
+
+/* CAMBIO 4: Agregar a .feature-card__description (después de line-height: 1.6;) */
+  text-decoration: none; /* Quita el subrayado de la descripción */
+
+/* CAMBIO 5: Reemplazar .testimonials-carousel__slide (líneas 724-740) con: */
+.testimonials-carousel__slide {
+  min-width: 100%;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  background-color: #DCF8C6; /* WhatsApp-like green */
+  border-radius: 12px 12px 12px 0;
+  position: relative;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin: 0 auto; /* Center the slide content */
+}
+
+/* CAMBIO 6: Agregar después de .testimonials-carousel__slide { ... } */
+/* Estilos específicos para desktop - tarjetas más cuadradas con vista previa */
+@media (min-width: 768px) {
+  .testimonials-carousel {
+    overflow: visible; /* Permite ver las tarjetas adyacentes */
+  }
+  
+  .testimonials-carousel__slides-container {
+    padding: 0 20%; /* Espacio para mostrar 20% de cada lado */
+  }
+  
+  .testimonials-carousel__slide {
+    min-width: 60%; /* Tarjeta principal ocupa 60% del ancho total */
+    max-width: 500px; /* Ancho máximo para mantener proporción cuadrada */
+    margin: 0 20%; /* Margen de 20% a cada lado */
+    padding: 2rem;
+    flex-shrink: 0; /* Evita que las tarjetas se compriman */
+  }
+}
