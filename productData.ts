@@ -2,10 +2,15 @@ import { Product, PriceCategory, KitType, Experience } from './types';
 
 // Generador de URLs de Imágenes (Mock)
 const generateImageUrls = (keywords: string): string[] => {
-  // Se usa una única imagen de prueba cuadrada (400x400) para cada producto.
   const baseUrl = 'https://placehold.co/400x400/e2e8f0/475569?text=';
-  const keyword = keywords.split(',')[0] || 'Producto';
-  return [`${baseUrl}${encodeURIComponent(keyword)}`];
+  const keywordList = keywords.split(',');
+  // Generamos 4 variaciones de imágenes
+  return [
+    `${baseUrl}${encodeURIComponent(keywordList[0] || 'Producto')}`,
+    `${baseUrl}${encodeURIComponent((keywordList[1] || keywordList[0]) + ' 2')}`,
+    `${baseUrl}${encodeURIComponent((keywordList[0]) + ' Detalle')}`,
+    `${baseUrl}${encodeURIComponent((keywordList[0]) + ' Uso')}`
+  ];
 };
 
 // Datos de Productos (Mock)

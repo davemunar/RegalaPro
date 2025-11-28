@@ -19,9 +19,9 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ isFooterVisible }) => {
                 aria-label="Contactar por WhatsApp"
             >
                 <FaWhatsapp />
-                <div className="whatsapp-notification">
+                {/* <div className="whatsapp-notification">
                     <FaGift />
-                </div>
+                </div> */}
             </a>
             <a href={whatsappUrl} className="whatsapp-popup" target="_blank" rel="noopener noreferrer">
                 <p>🎄¡Aprovecha el <strong>20% OFF</strong>!</p>

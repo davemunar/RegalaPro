@@ -1336,6 +1336,200 @@ main {
   }
 }
 
+.footer__socials a:hover {
+  color: var(--accent-color);
+}
+
+.footer__bottom-bar {
+  padding: 1.5rem 5%;
+}
+
+.footer__copyright {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Clases de utilidad */
+.unselectable {
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+/Edge */
+  user-select: none;
+  /* Estándar */
+}
+
+/* Responsive Tablet */
+@media (min-width: 768px) {
+  .header__menu-icon {
+    display: none;
+  }
+
+  .header__nav {
+    display: block;
+  }
+
+  .hero__title {
+    font-size: 3.5rem;
+  }
+
+  /* Reset product card to normal state for tablet and up */
+  .product-card {
+    border-color: #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+  }
+
+  .product-card:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Responsive Laptop/Desktop */
+@media (min-width: 1024px) {
+  .promotional-section__container {
+    flex-direction: row;
+  }
+
+  .promotional-section__image-container {
+    flex-basis: 50%;
+    min-height: 300px;
+  }
+
+  .promotional-section__content {
+    flex-basis: 50%;
+    padding: 4rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .promotional-section__title {
+    font-size: 2.6rem;
+    /* Increased by ~30% from a base of 2rem */
+  }
+
+  .promotional-section__body {
+    font-size: 1.1rem;
+    /* Increased slightly for better readability */
+    line-height: 1.7;
+  }
+
+  .promotional-section__cta-container {
+    margin-top: auto;
+    /* Pushes button to the bottom */
+    padding-top: 2rem;
+    /* Ensures space from text above */
+  }
+
+  .footer__main-content {
+    flex-direction: row;
+    justify-content: space-around;
+    /* Distribuye las columnas uniformemente */
+    text-align: left;
+  }
+}
+
+@media (min-width: 768px) {
+  .cta-section__container {
+    flex-direction: row;
+    justify-content: center;
+    /* Centra los elementos en escritorio */
+    gap: 1.5rem;
+  }
+
+  .cta-section__text {
+    font-size: 2.2rem;
+    /* Reducido para que no sea tan grande */
+    font-weight: 600;
+    /* Semibold para que destaque */
+    color: var(--text-dark);
+  }
+}
+
+@media (min-width: 768px) {
+  .cta-section__container {
+    flex-direction: row;
+    justify-content: center;
+    /* Centra los elementos en escritorio */
+    gap: 1.5rem;
+  }
+}
+
+.whatsapp-notification {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #FF3B30;
+  /* Rojo brillante */
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 2px solid white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  animation: pulse 1.5s infinite;
+}
+
+/* Estilos para tarjetas de producto */
+.product-price-original {
+  color: #9ca3af;
+  /* text-gray-400 */
+  text-decoration-line: line-through;
+  /* line-through */
+  font-size: 0.875rem;
+  /* text-sm */
+  line-height: 1.25rem;
+}
+
+.product-price-discounted {
+  color: #16a34a;
+  /* text-green-600 */
+  font-weight: 700;
+  /* font-bold */
+  font-size: 0.875rem;
+  /* text-sm */
+  line-height: 1.25rem;
+}
+
+/* === Catálogo de Productos - Grilla Estilo E-commerce (Control Preciso) === */
+.catalog-grid-container {
+  max-width: 1200px;
+  /* Ancho máximo del contenedor */
+  margin: 0 auto;
+  /* Centrar la grilla en la página */
+  display: grid;
+  grid-template-columns: 1fr;
+  /* 1 columna por defecto (móvil) */
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  /* Tablets (md) y superior */
+  /* La regla para 2 columnas en tablet se elimina para evitar conflictos */
+}
+
+@media (min-width: 1248px) {
+
+  /* Escritorio (lg) - 1200px para las columnas + 2*24px para los gaps */
+  .catalog-grid-container {
+    grid-template-columns: repeat(3, 384px);
+    /* 3 columnas de 384px */
+    justify-content: center;
+    /* Centra la grilla si el viewport es mayor a 1200px */
+  }
+}
+
 .product-card .group-hover\:text-blue-600:hover {
   color: var(--royal-blue);
 }
@@ -1389,7 +1583,6 @@ main {
   justify-content: center;
   border: 1px solid white;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @keyframes pulse {

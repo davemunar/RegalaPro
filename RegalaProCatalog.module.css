@@ -106,11 +106,19 @@
     border: 1px solid #f1f5f9;
 }
 
+/* Updated Catalog Grid for Mobile (2 columns) */
 .catalogGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
     padding-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .catalogGrid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+    }
 }
 
 /* Product Card Styles */
@@ -151,9 +159,10 @@
     transition: transform 0.5s ease;
 }
 
-.card:hover .cardImage {
+/* Removed zoom on hover to avoid conflict with arrows */
+/* .card:hover .cardImage {
     transform: scale(1.1);
-}
+} */
 
 .cardOverlay {
     position: absolute;
@@ -161,17 +170,118 @@
     background-color: black;
     opacity: 0;
     transition: opacity 0.3s ease;
+    pointer-events: none;
+    /* Ensure clicks pass through */
 }
 
 .card:hover .cardOverlay {
-    opacity: 0.1;
+    opacity: 0.05;
+}
+
+/* Navigation Arrows */
+.navArrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #1f2937;
+    z-index: 20;
+    opacity: 0;
+    /* Hidden by default on desktop */
+    transition: opacity 0.2s ease, background-color 0.2s, transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navArrow:hover {
+    background-color: #ffffff;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.arrowLeft {
+    left: 8px;
+    padding-right: 2px;
+    /* Visual centering adjustment */
+}
+
+.arrowRight {
+    right: 8px;
+    padding-left: 2px;
+    /* Visual centering adjustment */
+}
+
+/* Show arrows on hover (desktop) */
+.card:hover .navArrow {
+    opacity: 1;
+}
+
+/* Indicators */
+.imageIndicators {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.indicatorDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.activeDot {
+    background-color: #ffffff;
+    transform: scale(1.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .navArrow {
+        opacity: 1;
+        /* Always show on mobile */
+        width: 28px;
+        height: 28px;
+        font-size: 1.2rem;
+        background-color: rgba(255, 255, 255, 0.85);
+    }
+
+    .arrowLeft {
+        left: 6px;
+    }
+
+    .arrowRight {
+        right: 6px;
+    }
 }
 
 .cardContent {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 1.25rem;
+    padding: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .cardContent {
+        padding: 1.25rem;
+    }
 }
 
 .cardCategory {
@@ -185,15 +295,22 @@
 }
 
 .cardTitle {
-    font-size: 1.125rem;
+    font-size: 0.9rem;
     font-weight: 700;
     color: var(--text-dark);
     line-height: 1.25;
     margin-bottom: 0.5rem;
-    min-height: 3.5rem;
+    min-height: 2.5rem;
     /* Ensure alignment */
     display: flex;
     align-items: start;
+}
+
+@media (min-width: 768px) {
+    .cardTitle {
+        font-size: 1.125rem;
+        min-height: 3.5rem;
+    }
 }
 
 .cardDescription {
@@ -209,17 +326,34 @@
 
 .cardFooter {
     margin-top: auto;
-    padding-top: 1rem;
+    padding-top: 0.75rem;
     border-top: 1px solid #f1f5f9;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+@media (min-width: 768px) {
+    .cardFooter {
+        padding-top: 1rem;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0;
+    }
 }
 
 .cardPrice {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--text-dark);
+}
+
+@media (min-width: 768px) {
+    .cardPrice {
+        font-size: 1.25rem;
+    }
 }
 
 .cardButton {
@@ -227,18 +361,19 @@
     align-items: center;
     justify-content: center;
     border-radius: 9999px;
-    background-color: #eef2ff;
-    /* Indigo 50 */
+    background-color: #4f46e5;
+    /* Indigo 600 - Default Blue */
     padding: 0.25rem 0.75rem;
     font-size: 0.75rem;
     font-weight: 500;
-    color: #4338ca;
-    /* Indigo 700 */
+    color: #ffffff;
+    /* White text */
     transition: background-color 0.3s, color 0.3s;
+    text-align: center;
 }
 
 .card:hover .cardButton {
-    background-color: #4f46e5;
-    /* Indigo 600 */
+    background-color: #4338ca;
+    /* Indigo 700 - Darker on hover */
     color: #ffffff;
 }
