@@ -49,17 +49,17 @@ const Home: React.FC = () => {
                 <h2 className="featured-products__title text-3xl font-bold text-center mb-8">Nuestras Líneas de Regalos Corporativos</h2>
                 <div className="featured-products__grid">
                     {featuredProducts.map((feature, index) => (
-                        <Link 
-                            key={index} 
-                            to="/products" 
-                            state={{ kitType: feature.kitType }} 
-                            className="feature-card text-center no-underline p-4 rounded-lg transition-shadow duration-300 hover:shadow-xl hover:shadow-yellow-300/50"
+                        <Link
+                            key={index}
+                            to="/products"
+                            state={{ kitType: feature.kitType }}
+                            className="feature-card group text-center p-4 rounded-lg transition-shadow duration-300 hover:shadow-xl hover:shadow-yellow-300/50"
                         >
-                            <img src={feature.imageUrl} alt={feature.name} className="feature-card__image no-underline" />
-                            <h3 className="feature-card__name text-xl font-semibold mb-2 flex items-center justify-center gap-2 no-underline">
+                            <img src={feature.imageUrl} alt={feature.name} className="feature-card__image" />
+                            <h3 className="feature-card__name text-xl font-semibold mb-2 flex items-center justify-center gap-2">
                                 {feature.icon} <span>{feature.name}</span>
                             </h3>
-                            <p className="feature-card__description text-gray-600 no-underline">{feature.description}</p>
+                            <p className="feature-card__description text-gray-600">{feature.description}</p>
                         </Link>
                     ))}
                 </div>
