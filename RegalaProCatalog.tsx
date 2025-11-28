@@ -2,7 +2,7 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductCardForCatalog from './ProductCardForCatalog';
-import allProducts from './products.json'; // Importamos los datos desde el JSON
+import { allProducts } from './productData'; // Importamos los datos actualizados con múltiples imágenes
 import { Product, PriceCategory, KitType, Experience } from './types';
 import styles from './RegalaProCatalog.module.css'; // Importamos nuestro módulo de estilos
 import ProductDetailModal from './ProductDetailModal'; // Importamos el modal

@@ -284,14 +284,82 @@
     }
 }
 
+/* Category Badge Styles - Interactive Pill */
 .cardCategory {
-    font-size: 0.75rem;
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 10;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
     font-weight: 700;
-    color: #4f46e5;
-    /* Indigo 600 */
     text-transform: uppercase;
-    letter-spacing: 0.025em;
-    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    /* Fallback */
+    color: #4b5563;
+    /* Fallback */
+    cursor: pointer;
+    /* Indicates clickability */
+    transition: transform 0.2s ease, opacity 0.2s;
+}
+
+.cardCategory:hover {
+    transform: scale(1.05);
+    /* Subtle feedback */
+    opacity: 0.95;
+}
+
+/* Category Color Modifiers */
+.catPromocional {
+    background-color: #dbeafe;
+    /* Blue 100 */
+    color: #1e40af;
+    /* Blue 800 */
+}
+
+.catSnacks {
+    background-color: #ffedd5;
+    /* Orange 100 */
+    color: #9a3412;
+    /* Orange 800 */
+}
+
+.catOficina {
+    background-color: #f3f4f6;
+    /* Gray 100 */
+    color: #1f2937;
+    /* Gray 800 */
+}
+
+.catCuidadoPersonal {
+    background-color: #ccfbf1;
+    /* Teal 100 */
+    color: #115e59;
+    /* Teal 800 */
+}
+
+.catGourmet {
+    background-color: #fee2e2;
+    /* Red 100 */
+    color: #991b1b;
+    /* Red 800 */
+}
+
+.catHobbies {
+    background-color: #f3e8ff;
+    /* Purple 100 */
+    color: #6b21a8;
+    /* Purple 800 */
+}
+
+.catTecnologia {
+    background-color: #cffafe;
+    /* Cyan 100 */
+    color: #155f75;
+    /* Cyan 800 */
 }
 
 .cardTitle {
@@ -301,7 +369,6 @@
     line-height: 1.25;
     margin-bottom: 0.5rem;
     min-height: 2.5rem;
-    /* Ensure alignment */
     display: flex;
     align-items: start;
 }
@@ -316,7 +383,6 @@
 .cardDescription {
     font-size: 0.875rem;
     color: #6b7280;
-    /* Gray 500 */
     margin-bottom: 1rem;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -337,10 +403,8 @@
 @media (min-width: 768px) {
     .cardFooter {
         padding-top: 1rem;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0;
+        align-items: flex-start;
+        gap: 0.5rem;
     }
 }
 
@@ -357,23 +421,218 @@
 }
 
 .cardButton {
-    display: inline-flex;
+    display: none;
+    /* Hidden by default on mobile */
     align-items: center;
     justify-content: center;
     border-radius: 9999px;
     background-color: #4f46e5;
-    /* Indigo 600 - Default Blue */
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    flex-direction: column;
+    padding: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .cardContent {
+        padding: 1.25rem;
+    }
+}
+
+/* Category Badge Styles - Interactive Pill */
+.cardCategory {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 10;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    /* Fallback */
+    color: #4b5563;
+    /* Fallback */
+    cursor: pointer;
+    /* Indicates clickability */
+    transition: transform 0.2s ease, opacity 0.2s;
+}
+
+.cardCategory:hover {
+    transform: scale(1.05);
+    /* Subtle feedback */
+    opacity: 0.95;
+}
+
+/* Category Color Modifiers */
+.catPromocional {
+    background-color: #dbeafe;
+    /* Blue 100 */
+    color: #1e40af;
+    /* Blue 800 */
+}
+
+.catSnacks {
+    background-color: #ffedd5;
+    /* Orange 100 */
+    color: #9a3412;
+    /* Orange 800 */
+}
+
+.catOficina {
+    background-color: #f3f4f6;
+    /* Gray 100 */
+    color: #1f2937;
+    /* Gray 800 */
+}
+
+.catCuidadoPersonal {
+    background-color: #ccfbf1;
+    /* Teal 100 */
+    color: #115e59;
+    /* Teal 800 */
+}
+
+.catGourmet {
+    background-color: #fee2e2;
+    /* Red 100 */
+    color: #991b1b;
+    /* Red 800 */
+}
+
+.catHobbies {
+    background-color: #f3e8ff;
+    /* Purple 100 */
+    color: #6b21a8;
+    /* Purple 800 */
+}
+
+.catTecnologia {
+    background-color: #cffafe;
+    /* Cyan 100 */
+    color: #155f75;
+    /* Cyan 800 */
+}
+
+.cardTitle {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+    min-height: 2.5rem;
+    display: flex;
+    align-items: start;
+}
+
+@media (min-width: 768px) {
+    .cardTitle {
+        font-size: 1.125rem;
+        min-height: 3.5rem;
+    }
+}
+
+.cardDescription {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cardFooter {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+@media (min-width: 768px) {
+    .cardFooter {
+        padding-top: 1rem;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+.cardPrice {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+@media (min-width: 768px) {
+    .cardPrice {
+        font-size: 1.25rem;
+    }
+}
+
+.cardButton {
+    display: none;
+    /* Hidden by default on mobile */
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background-color: #4f46e5;
     padding: 0.25rem 0.75rem;
     font-size: 0.75rem;
     font-weight: 500;
     color: #ffffff;
-    /* White text */
     transition: background-color 0.3s, color 0.3s;
     text-align: center;
 }
 
+@media (min-width: 768px) {
+    .cardButton {
+        display: inline-flex;
+        /* Visible on desktop */
+    }
+}
+
 .card:hover .cardButton {
     background-color: #4338ca;
-    /* Indigo 700 - Darker on hover */
     color: #ffffff;
+}
+
+/* Add to Cart Button (Yellow with Blue Icon - CTA Style) */
+.addToCartButton {
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #FFC300;
+    /* CTA Yellow */
+    color: #0A2540;
+    /* CTA Dark Blue */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, background-color 0.2s;
+    z-index: 20;
+}
+
+.addToCartButton:hover {
+    background-color: #ffd65c;
+    /* Lighter Yellow on hover */
+    transform: scale(1.1);
+}
+
+.addToCartButton svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.5;
 }
