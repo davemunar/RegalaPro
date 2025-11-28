@@ -1,49 +1,93 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { Product } from './RegalaProCatalog'; // Reutilizamos la interfaz
+import { Product } from './types';
+import styles from './ProductDetailModal.module.css';
 
 interface ProductDetailModalProps {
   product: Product | null;
   onClose: () => void;
-  onAddToQuote: (product: Product) => void;
+  onAddToQuote: (product: Product, quantity: number, wantsAdvisory: boolean) => void;
 }
 
 const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClose, onAddToQuote }) => {
-  // Si no hay producto, no renderizamos nada.
+  const [quantity, setQuantity] = useState(1);
+  const [wantsAdvisory, setWantsAdvisory] = useState(false);
+
+  useEffect(() => {
+    if (product) {
+      setQuantity(1);
+      setWantsAdvisory(false);
+    }
+  }, [product]);
+
   if (!product) {
     return null;
   }
 
-  // El contenido del modal que se renderizará a través del portal.
+  const handleAddToQuote = () => {
+    onAddToQuote(product, quantity, wantsAdvisory);
+    onClose();
+  };
+
   const modalContent = (
-    <div 
-      className="fixed inset-0 bg-black/60 z-[1000] flex justify-center items-center p-4 animate-fade-in"
-      onClick={onClose} // Cierra el modal si se hace clic en el fondo
+    <div
+      className={styles.modalBackdrop}
+      onClick={onClose}
     >
-      <div 
-        className="bg-white rounded-lg shadow-2xl w-full max-w-lg relative overflow-hidden flex flex-col max-h-[90vh]"
-        onClick={e => e.stopPropagation()} // Evita que el clic dentro del modal se propague al fondo
+      <div
+        className={styles.modalBox}
+        onClick={e => e.stopPropagation()}
       >
-        {/* Botón para cerrar */}
-        <button 
-          onClick={onClose} 
-          className="absolute top-3 right-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full p-1.5 z-10 transition-transform duration-200 hover:scale-110"
+        <button
+          onClick={onClose}
+          className={styles.closeButton}
           aria-label="Cerrar"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
 
-        {/* Contenido del Modal */}
-        <div className="h-64 w-full bg-gray-100 flex-shrink-0">
-          <img src={product.imageUrls[0]} alt={product.name} className="w-full h-full object-cover" />
+        <div className={styles.imageSection}>
+          <img src={product.imageUrls[0]} alt={product.name} className={styles.productImage} />
         </div>
-        <div className="p-6 overflow-y-auto">
-          <h2 className="text-2xl font-bold text-indigo-900 mb-2">{product.name}</h2>
-          <p className="text-gray-600 mb-4">{product.description}</p>
-          <div className="flex justify-between items-center mb-6 border-y border-gray-200 py-4">
-            <div className="text-3xl font-bold text-indigo-900">${product.price.toLocaleString('es-CO')}</div>
+
+        <div className={styles.contentSection}>
+          <h2 className={styles.productTitle}>{product.name}</h2>
+
+          <p className={styles.productDescription}>{product.description}</p>
+
+          <div className={styles.priceContainer}>
+            <div className={styles.price}>${product.price.toLocaleString('es-CO')}</div>
+            <div className={styles.quantityControl}>
+              <label htmlFor="modal-quantity" className={styles.quantityLabel}>Cant:</label>
+              <input
+                id="modal-quantity"
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                className={styles.quantityInput}
+                min="1"
+              />
+            </div>
           </div>
-          <button onClick={() => onAddToQuote(product)} className="w-full bg-yellow-400 text-indigo-900 font-bold py-3 rounded-lg hover:bg-yellow-500 uppercase tracking-wider shadow-lg transition-all duration-200">
+
+          <div className={styles.advisoryBox} onClick={() => setWantsAdvisory(!wantsAdvisory)}>
+            <label className={styles.advisoryLabel}>
+              <input
+                type="checkbox"
+                checked={wantsAdvisory}
+                onChange={e => setWantsAdvisory(e.target.checked)}
+                className={styles.checkbox}
+              />
+              <span className={styles.advisoryText}>
+                ¿Deseas asesoría gratuita para personalizar este producto con tu logo?
+              </span>
+            </label>
+          </div>
+
+          <button
+            onClick={handleAddToQuote}
+            className={styles.addButton}
+          >
             Agregar a Cotización
           </button>
         </div>
@@ -51,7 +95,6 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
     </div>
   );
 
-  // Usamos un Portal para renderizar el modal fuera de la jerarquía del componente actual.
   return ReactDOM.createPortal(modalContent, document.body);
 };
 

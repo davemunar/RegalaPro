@@ -46,8 +46,7 @@ const AppContent: React.FC = () => {
               </div>
             } 
           />
-          {/* Nueva ruta para el detalle del producto */}
-          <Route path="/product/:id" element={<ProductDetails/>} />
+          {/* La ruta de detalle de producto ya no es necesaria, se maneja con un modal */}
           <Route path="/cotizacion" element={<QuotePage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/sobre-nosotros" element={<About />} />

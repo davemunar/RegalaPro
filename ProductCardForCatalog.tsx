@@ -1,36 +1,50 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Product } from './types';
+import styles from './RegalaProCatalog.module.css';
 
 interface ProductCardForCatalogProps {
   product: Product;
+  onCardClick: () => void;
 }
 
-const ProductCardForCatalog: React.FC<ProductCardForCatalogProps> = ({ product }) => {
+const ProductCardForCatalog: React.FC<ProductCardForCatalogProps> = ({ product, onCardClick }) => {
   return (
-    <Link 
-      to={`/product/${product.id}`}
-      className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow duration-300 hover:shadow-xl hover:shadow-yellow-300/50"
+    <div
+      onClick={onCardClick}
+      className={styles.card}
+      role="button"
+      tabIndex={0}
     >
-      <div className="aspect-w-1 aspect-h-1 bg-gray-200 overflow-hidden">
-        <img 
-          src={product.imageUrls[0]} 
-          alt={product.name} 
-          className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105" 
+      <div className={styles.cardImageContainer}>
+        <img
+          src={product.imageUrls[0]}
+          alt={product.name}
+          className={styles.cardImage}
         />
+        <div className={styles.cardOverlay} />
       </div>
-      <div className="flex flex-1 flex-col p-4">
-        <h3 className="text-base font-semibold text-gray-800 text-center h-12 flex items-center justify-center">
-          {product.name}
-        </h3>
-        <div className="flex flex-1 flex-col justify-end mt-3">
-          <p className="text-lg font-bold text-gray-700 text-center">${product.price.toLocaleString('es-CO')}</p>
-          <button className="cta-button mt-4 w-full">
+      <div className={styles.cardContent}>
+        <div className="flex-1">
+          <p className={styles.cardCategory}>
+            {product.category}
+          </p>
+          <h3 className={styles.cardTitle}>
+            {product.name}
+          </h3>
+          <p className={styles.cardDescription}>
+            {product.description}
+          </p>
+        </div>
+        <div className={styles.cardFooter}>
+          <p className={styles.cardPrice}>
+            ${product.price.toLocaleString('es-CO')}
+          </p>
+          <span className={styles.cardButton}>
             Ver Detalle
-          </button>
+          </span>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

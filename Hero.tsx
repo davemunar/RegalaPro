@@ -40,11 +40,7 @@ const Hero: React.FC = () => {
     const navigate = useNavigate();
 
     const handleCtaClick = () => {
-        if (quoteItemCount > 0) {
-            navigate('/cotizacion');
-        } else {
-            navigate('/products');
-        }
+        navigate('/products');
     };
 
     useEffect(() => {
@@ -80,7 +76,12 @@ const Hero: React.FC = () => {
 
     return (
         <section className="hero-carousel">
-            <div className="hero-carousel__slides-container" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+            <div
+                className="hero-carousel__slides-container"
+                style={{
+                    transform: `translateX(-${currentIndex * 100}%)`
+                }}
+            >
                 {slides.map((slide, index) => (
                     <div className="hero-carousel__slide" key={index}>
                         <div className="hero__background">

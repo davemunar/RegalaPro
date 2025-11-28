@@ -1,0 +1,249 @@
+.modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(10, 37, 64, 0.75);
+    /* Darker, tinted backdrop */
+    backdrop-filter: blur(8px);
+    /* Premium blur effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 1.5rem;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modalBox {
+    background-color: var(--background-light);
+    border-radius: 1.5rem;
+    /* More rounded */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 64rem;
+    /* Wider modal for better layout */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (min-width: 768px) {
+    .modalBox {
+        flex-direction: row;
+        height: auto;
+        max-height: 85vh;
+    }
+}
+
+.imageSection {
+    width: 100%;
+    height: 300px;
+    background-color: #f1f5f9;
+    position: relative;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .imageSection {
+        width: 50%;
+        height: auto;
+    }
+}
+
+.productImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.productImage:hover {
+    transform: scale(1.05);
+}
+
+.contentSection {
+    padding: 2.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background-color: #ffffff;
+}
+
+@media (min-width: 768px) {
+    .contentSection {
+        width: 50%;
+    }
+}
+
+.closeButton {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--text-dark);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.closeButton:hover {
+    transform: rotate(90deg);
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.productTitle {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.productDescription {
+    font-size: 1rem;
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.priceContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.quantityControl {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #f8fafc;
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid #e2e8f0;
+}
+
+.quantityLabel {
+    font-weight: 600;
+    color: var(--text-dark);
+    padding-left: 0.5rem;
+}
+
+.quantityInput {
+    width: 60px;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.quantityInput:focus {
+    outline: none;
+}
+
+.advisoryBox {
+    background-color: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.advisoryBox:hover {
+    background-color: #dbeafe;
+}
+
+.advisoryLabel {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.checkbox {
+    margin-top: 0.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 0.25rem;
+    border: 2px solid #93c5fd;
+    cursor: pointer;
+}
+
+.advisoryText {
+    font-size: 0.95rem;
+    color: #1e40af;
+    font-weight: 500;
+}
+
+.addButton {
+    width: 100%;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 1.25rem;
+    border-radius: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0 10px 15px -3px rgba(255, 195, 0, 0.3);
+}
+
+.addButton:hover {
+    background-color: #ffca28;
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(255, 195, 0, 0.4);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
