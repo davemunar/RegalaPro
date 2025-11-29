@@ -375,3 +375,67 @@
         transform: translateY(0);
     }
 }
+
+/* Navigation Arrows */
+.navArrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #1f2937;
+    z-index: 20;
+    transition: opacity 0.2s ease, background-color 0.2s, transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navArrow:hover {
+    background-color: #ffffff;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.arrowLeft {
+    left: 8px;
+    padding-right: 2px;
+}
+
+.arrowRight {
+    right: 8px;
+    padding-left: 2px;
+}
+
+/* Indicators */
+.imageIndicators {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.indicatorDot {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.activeDot {
+    background-color: #ffffff;
+    transform: scale(1.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}

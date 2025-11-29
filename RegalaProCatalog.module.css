@@ -583,21 +583,6 @@
 
 .catOficina {
     background-color: #f3f4f6;
-    /* Gray 100 */
-    color: #1f2937;
-    /* Gray 800 */
-}
-
-.catCuidadoPersonal {
-    background-color: #ccfbf1;
-    /* Teal 100 */
-    color: #115e59;
-}
-
-.cardPrice {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--text-dark);
 }
 
 @media (min-width: 768px) {
