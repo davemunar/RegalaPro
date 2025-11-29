@@ -58,7 +58,13 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
           <div className={styles.priceContainer}>
             <div className={styles.price}>${product.price.toLocaleString('es-CO')}</div>
             <div className={styles.quantityControl}>
-              <label htmlFor="modal-quantity" className={styles.quantityLabel}>Cant:</label>
+              <button
+                className={styles.qtyBtn}
+                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                aria-label="Disminuir cantidad"
+              >
+                -
+              </button>
               <input
                 id="modal-quantity"
                 type="number"
@@ -67,6 +73,13 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
                 className={styles.quantityInput}
                 min="1"
               />
+              <button
+                className={styles.qtyBtn}
+                onClick={() => setQuantity(quantity + 1)}
+                aria-label="Aumentar cantidad"
+              >
+                +
+              </button>
             </div>
           </div>
 
