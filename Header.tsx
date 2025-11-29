@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaGift, FaShoppingBasket, FaRegistered, FaShoppingCart } from 'react-icons/fa';
 import { useQuote } from './useQuote';
+import { useAnimation } from './AnimationContext';
 
 const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { quoteItemCount } = useQuote();
+    const { registerHeaderButton, isHeaderGlowing } = useAnimation();
     const navigate = useNavigate();
 
     const toggleMenu = () => {
@@ -56,8 +58,9 @@ const Header: React.FC = () => {
                 </ul>
             </nav>
             <button
+                ref={registerHeaderButton}
                 onClick={handleQuoteClick}
-                className="cta-button header__quote-button"
+                className={`cta-button header__quote-button ${isHeaderGlowing ? 'glow-animation' : ''}`}
             >
                 <span className="header__quote-text-desktop">Mi Cotización</span>
                 <span className="header__quote-text-mobile">Cotización</span>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Product } from './types';
 import styles from './ProductDetailModal.module.css';
+import { useAnimation } from './AnimationContext';
 
 interface ProductDetailModalProps {
     product: Product | null;
@@ -13,6 +14,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
     const [quantity, setQuantity] = useState(1);
     const [wantsAdvisory, setWantsAdvisory] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const { triggerSuccessAnimation } = useAnimation();
 
     useEffect(() => {
         if (product) {
@@ -26,9 +28,11 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
         return null;
     }
 
-    const handleAddToQuote = () => {
+    const handleAddToQuote = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
         onAddToQuote(product, quantity, wantsAdvisory);
         onClose();
+        triggerSuccessAnimation(rect);
     };
 
     const handlePrevClick = (e: React.MouseEvent) => {

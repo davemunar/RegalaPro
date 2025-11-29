@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import ScrollToTop from './ScrollToTop';
 
 import Header from './Header';
@@ -11,8 +11,8 @@ import WhatsAppButton from './WhatsAppButton';
 import Home from './Home';
 import RegalaProCatalog from './RegalaProCatalog';
 import { QuoteProvider } from './useQuote';
-import ProductDetails from './ProductDetails';
 import QuotePage from './QuotePage';
+import { AnimationProvider } from './AnimationContext';
 
 // Placeholder components for new routes
 const Contact = () => <div className="py-8"><h1 className="text-3xl font-bold">Página de Contacto</h1><p>Información de contacto aquí.</p></div>;
@@ -38,13 +38,13 @@ const AppContent: React.FC = () => {
       <main className="min-h-screen">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route 
-            path="/products" 
+          <Route
+            path="/products"
             element={
               <div className="container mx-auto px-4 py-8">
                 <RegalaProCatalog className="shadow-2xl border border-gray-200" />
               </div>
-            } 
+            }
           />
           {/* La ruta de detalle de producto ya no es necesaria, se maneja con un modal */}
           <Route path="/cotizacion" element={<QuotePage />} />
@@ -64,7 +64,9 @@ const App: React.FC = () => {
   return (
     <Router>
       <QuoteProvider>
-        <AppContent />
+        <AnimationProvider>
+          <AppContent />
+        </AnimationProvider>
       </QuoteProvider>
     </Router>
   );
