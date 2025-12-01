@@ -132,16 +132,16 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
                 {/* === FIN: Nuevo Contenedor Unificado === */}
 
                 <div className={styles.stickyFilterBar}>
-                    <button style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'white', border: '1px solid #e2e8f0', padding: '0.5rem 1rem', borderRadius: '0.5rem', cursor: 'pointer', color: '#4b5563', fontSize: '0.9rem', fontWeight: 600 }}>
-                        <FaFilter /> Filtrar por
+                    <button style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', background: 'white', border: '1px solid #e2e8f0', padding: '0.4rem 0.6rem', borderRadius: '0.5rem', cursor: 'pointer', color: '#4b5563', fontSize: '0.85rem', fontWeight: 600 }}>
+                        <FaFilter /> Filtrar
                     </button>
 
-                    <button style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'white', border: '1px solid #e2e8f0', padding: '0.5rem 1rem', borderRadius: '0.5rem', cursor: 'pointer', color: '#4b5563', fontSize: '0.9rem', fontWeight: 600 }}>
-                        Ordenar por <FaSort />
+                    <button style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', background: 'white', border: '1px solid #e2e8f0', padding: '0.4rem 0.6rem', borderRadius: '0.5rem', cursor: 'pointer', color: '#4b5563', fontSize: '0.85rem', fontWeight: 600 }}>
+                        Ordenar <FaSort />
                     </button>
 
-                    <div style={{ fontWeight: 600, color: 'var(--text-dark)' }}>
-                        {filteredProducts.length} <span style={{ display: 'inline-block', marginLeft: '0.25rem', marginBottom: '0.2rem' }}><FaGift /></span> encontrados
+                    <div style={{ fontWeight: 600, color: 'var(--text-dark)', fontSize: '0.9rem' }}>
+                        {filteredProducts.length} <span style={{ display: 'inline-block', marginLeft: '0.1rem', marginBottom: '0.1rem' }}><FaGift /></span>
                     </div>
                 </div>
 
