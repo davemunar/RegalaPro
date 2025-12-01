@@ -236,6 +236,11 @@ main {
 
 .cta-section {
   padding: 2rem 5%;
+  /* Ligero efecto al pasar el mouse sobre el popup */
+}
+
+.cta-section {
+  padding: 2rem 5%;
   background-color: var(--background-soft);
   text-align: center;
   /* Centra el texto por defecto */
@@ -271,8 +276,8 @@ main {
 /* WhatsApp Floating Button */
 .whatsapp-button {
   position: fixed;
-  bottom: 25px;
-  right: 25px;
+  bottom: 20px;
+  right: 20px;
   z-index: 1000;
 }
 
@@ -280,19 +285,18 @@ main {
   background-color: #25D366;
   /* WhatsApp Green */
   color: white;
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  font-size: 2rem;
   /* Icon size */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, background-color 0.3s ease;
   text-decoration: none;
   position: relative;
-  /* Para que la notificación se posicione correctamente */
 }
 
 .whatsapp-button__icon-link:hover {
@@ -301,8 +305,8 @@ main {
 
 .whatsapp-popup {
   position: absolute;
-  bottom: 75px;
-  /* Altura del botón (60px) + 15px de margen */
+  bottom: 60px;
+  /* Altura del botón (48px) + 12px de margen */
   right: 0;
   width: max-content;
   /* El ancho se ajusta al contenido */

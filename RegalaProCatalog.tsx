@@ -7,6 +7,7 @@ import { Product, PriceCategory, KitType, Experience } from './types';
 import styles from './RegalaProCatalog.module.css'; // Importamos nuestro módulo de estilos
 import ProductDetailModal from './ProductDetailModal'; // Importamos el modal
 import { useQuote } from './useQuote'; // Importamos el hook del carrito
+import CatalogScrollToTop from './CatalogScrollToTop'; // Importamos el botón de scroll
 // --- 1. DEFINICIÓN DE TIPOS Y DATOS ---
 
 // Tipos de Categorías
@@ -146,6 +147,8 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
         onClose={() => setActiveProduct(null)}
         onAddToQuote={handleAddToQuoteFromModal}
       />
+
+      <CatalogScrollToTop />
     </div>
   );
 };
