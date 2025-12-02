@@ -54,7 +54,7 @@ const CatalogScrollToTop: React.FC = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                zIndex: 999, // Below modal (3000) and whatsapp (1000) - wait, should be visible. WhatsApp is 1000. Let's make this 990 so it pops "behind" or "above"? User said "Encima de El icono". Visually above (y-axis) but z-index wise? Usually these floaters are on same level. Let's use 999.
+                zIndex: 1100, // Ensure it's above the bottom marquee (999) and WhatsApp button (1000)
                 transition: 'opacity 0.3s ease, transform 0.3s ease',
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? 'translateY(0)' : 'translateY(20px)',

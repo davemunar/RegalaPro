@@ -28,6 +28,7 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
     const [activeProduct, setActiveProduct] = useState<Product | null>(null);
     const [showStickyFilters, setShowStickyFilters] = useState(false);
     const filterBarRef = useRef<HTMLDivElement>(null);
+    const scrollAnchorRef = useRef<HTMLDivElement>(null);
 
     const initialState = location.state as { kitType?: KitType } | null;
     const [selectedExperiences, setSelectedExperiences] = useState<Experience[]>([]);
@@ -77,16 +78,9 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
     }, [selectedPrice, selectedKitTypes, selectedExperiences]);
 
     const scrollToFilterBar = useCallback(() => {
-        if (filterBarRef.current && filterBarRef.current.offsetParent) {
-            const element = filterBarRef.current;
-            const parent = element.offsetParent as HTMLElement;
-            // Calculate absolute position: parent's absolute top + element's offset relative to parent
-            const parentTop = parent.getBoundingClientRect().top + window.scrollY;
-            const elementTop = parentTop + element.offsetTop;
-            // Target: element's top minus the sticky offset (108px)
-            const targetY = elementTop - 108;
-
-            window.scrollTo({ top: targetY, behavior: 'smooth' });
+        if (scrollAnchorRef.current) {
+            const y = scrollAnchorRef.current.getBoundingClientRect().top + window.scrollY - 108;
+            window.scrollTo({ top: y, behavior: 'smooth' });
         }
     }, []);
 
@@ -102,8 +96,10 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
         setShowStickyFilters(false);
         // Delay scroll to ensure body overflow is reset
         setTimeout(() => {
-            scrollToFilterBar();
-        }, 100);
+            requestAnimationFrame(() => {
+                scrollToFilterBar();
+            });
+        }, 150);
     };
 
     const handleFilterClick = () => {
@@ -185,6 +181,7 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
                 </div>
                 {/* === FIN: Nuevo Contenedor Unificado === */}
 
+                <div ref={scrollAnchorRef} style={{ height: 0, margin: 0, padding: 0 }} />
                 <div ref={filterBarRef} className={`${styles.stickyFilterBar} ${showStickyFilters ? styles.stickyFilterBarOpen : ''}`}>
                     {showStickyFilters && <div className={styles.filterBackdrop} onClick={() => setShowStickyFilters(false)} />}
                     <div className={styles.controlsRow}>
@@ -230,8 +227,10 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
                                         setShowStickyFilters(false);
                                         // Delay scroll to ensure body overflow is reset
                                         setTimeout(() => {
-                                            scrollToFilterBar();
-                                        }, 100);
+                                            requestAnimationFrame(() => {
+                                                scrollToFilterBar();
+                                            });
+                                        }, 150);
                                     }}
                                     className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 font-semibold text-sm transition-colors shadow-sm"
                                 >
