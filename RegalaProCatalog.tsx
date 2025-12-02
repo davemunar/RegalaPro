@@ -12,7 +12,7 @@ import { FaGift, FaFilter, FaSort, FaTrash, FaCheck } from 'react-icons/fa';
 // --- 1. DEFINICIÓN DE TIPOS Y DATOS ---
 const priceFilters: { label: string; category: PriceCategory }[] = [
     { label: 'Esencial (hasta $50k)', category: 'Esencial' },
-    { label: 'Premium ($50k - $100k)', category: 'Premium' },
+    { label: 'Pro ($50k - $100k)', category: 'Premium' },
     { label: 'VIP Pro (más de $100k)', category: 'VIP Pro' },
 ];
 const kitTypeFilters: KitType[] = ['Kits Empresariales', 'Anchetas', 'Promocionales'];
@@ -123,7 +123,7 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
                 <h3 className={styles.filterSubtitle}>Presupuesto</h3>
                 <div className={styles.filterOptions}>
                     {priceFilters.map(p => (
-                        <label key={p.category} className="flex items-center mb-1 text-sm cursor-pointer hover:text-indigo-600 transition-colors">
+                        <label key={p.category} className="flex items-center mb-1 text-sm cursor-pointer hover:text-indigo-600 transition-colors whitespace-nowrap">
                             <input type="checkbox" checked={selectedPrice.includes(p.category)} onChange={() => toggleFilter(setSelectedPrice, p.category)} className="mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
                             {p.label}
                         </label>
