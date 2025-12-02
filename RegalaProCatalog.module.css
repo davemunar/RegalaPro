@@ -618,9 +618,87 @@
     /* Required for transform to work */
 }
 
-.productCountContainer {
-    font-weight: 600;
-    color: var(--text-dark);
+.quickFilterContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.filterRow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+    /* Space for scrollbar if needed */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE/Edge */
+}
+
+.filterRow::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari */
+}
+
+.filterLabel {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #9ca3af;
+    text-transform: uppercase;
+    white-space: nowrap;
+    min-width: 60px;
+}
+
+.filterPill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 1rem;
+    border-radius: 9999px;
     font-size: 0.85rem;
-    transition: color 0.3s ease;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    background-color: #f3f4f6;
+    /* Gray-100 */
+    color: #4b5563;
+    /* Gray-600 */
+}
+
+.filterPill:hover {
+    background-color: #e5e7eb;
+    /* Gray-200 */
+}
+
+.filterPillActive {
+    background-color: #eff6ff;
+    /* Blue-50 */
+    color: #2563eb;
+    /* Blue-600 */
+    border-color: #bfdbfe;
+    /* Blue-200 */
+    font-weight: 600;
+    box-shadow: 0 1px 2px rgba(37, 99, 235, 0.1);
+}
+
+@media (min-width: 768px) {
+    .quickFilterContainer {
+        padding: 1rem 2rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .filterRow {
+        overflow-x: visible;
+        flex-wrap: wrap;
+    }
 }

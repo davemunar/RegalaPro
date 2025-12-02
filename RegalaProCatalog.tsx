@@ -7,7 +7,7 @@ import styles from './RegalaProCatalog.module.css';
 import ProductDetailModal from './ProductDetailModal';
 import { useQuote } from './useQuote';
 import CatalogScrollToTop from './CatalogScrollToTop';
-import { FaGift, FaFilter, FaSort, FaTrash, FaCheck } from 'react-icons/fa';
+import { FaGift, FaFilter, FaSort, FaTrash, FaCheck, FaDollarSign } from 'react-icons/fa';
 
 // --- 1. DEFINICIÓN DE TIPOS Y DATOS ---
 const priceFilters: { label: string; category: PriceCategory }[] = [
@@ -26,7 +26,7 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
     const location = useLocation();
     const { addToQuote } = useQuote();
     const [activeProduct, setActiveProduct] = useState<Product | null>(null);
-    const [showStickyFilters, setShowStickyFilters] = useState(false);
+    // const [showStickyFilters, setShowStickyFilters] = useState(false);
     const filterBarRef = useRef<HTMLDivElement>(null);
     const scrollAnchorRef = useRef<HTMLDivElement>(null);
 
@@ -107,71 +107,7 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
         setActiveProduct(null);
     };
 
-    const handleClearFilters = () => {
-        // setSelectedExperiences([]);
-        setSelectedKitTypes([]);
-        setSelectedPrice([]);
-    };
 
-    const handleFilterClick = () => {
-        if (!showStickyFilters) {
-            scrollToFilterBar();
-        }
-        setShowStickyFilters(!showStickyFilters);
-    };
-
-    const renderFilters = () => (
-        <div className={styles.filterGrid}>
-            {/* <div className={styles.filterColumn}>
-                <h3 className={styles.filterSubtitle}>Experiencia</h3>
-                <div className={styles.filterOptions}>
-                    {experienceFilters.map(exp => (
-                        <label key={exp} className={`flex items-center mb-1 text-sm ${exp === 'Bienvenida / Onboarding' && isBienvenidaDisabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer hover:text-indigo-600 transition-colors'}`}>
-                            <input type="checkbox" checked={selectedExperiences.includes(exp)} onChange={() => toggleFilter(setSelectedExperiences, exp)} disabled={isBienvenidaDisabled && exp === 'Bienvenida / Onboarding'} className="mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                            {exp}
-                        </label>
-                    ))}
-                </div>
-            </div> */}
-            <div className={styles.filterColumn}>
-                <h3 className={styles.filterSubtitle}>Producto</h3>
-                <div className={styles.filterOptions}>
-                    {kitTypeFilters.map(kit => (
-                        <label key={kit} className={`flex items-center mb-1 text-xs whitespace-nowrap ${/* kit === 'Anchetas' && isAnchetasDisabled ? 'opacity-40 cursor-not-allowed' : */ 'cursor-pointer hover:text-indigo-600 transition-colors'}`}>
-                            <input type="checkbox" checked={selectedKitTypes.includes(kit)} onChange={() => toggleFilter(setSelectedKitTypes, kit)} /* disabled={isAnchetasDisabled && kit === 'Anchetas'} */ className="mr-2 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                            {kit}
-                        </label>
-                    ))}
-                </div>
-            </div>
-            <div className={styles.filterColumn}>
-                <h3 className={styles.filterSubtitle}>
-                    <span className={styles.mobileText}>Presupuesto (c/u)</span>
-                    <span className={styles.desktopText}>Presupuesto por regalo</span>
-                </h3>
-                <div className={styles.filterOptions}>
-                    {priceFilters.map(p => (
-                        <label key={p.category} className="flex items-center mb-1 text-xs cursor-pointer hover:text-indigo-600 transition-colors whitespace-nowrap">
-                            <input type="checkbox" checked={selectedPrice.includes(p.category)} onChange={() => toggleFilter(setSelectedPrice, p.category)} className="mr-2 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                            {p.label}
-                        </label>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-
-    // Bloquear scroll del body cuando los filtros están abiertos
-    useEffect(() => {
-        if (showStickyFilters) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-        return () => {
-            document.body.style.overflow = '';
-        };
-    }, [showStickyFilters]);
 
     // Animación del contador de productos
     const [animateCount, setAnimateCount] = useState(false);
@@ -185,131 +121,86 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
     return (
         <div className={`${styles.catalogContainer} ${className}`}>
             <div className="p-4 md:p-8 relative">
-                {/* === INICIO: Nuevo Contenedor Unificado para Título y Filtros === */}
-                <div className={styles.filterContainer}>
-                    <h2 className={styles.title}>Catálogo Corporativo</h2>
-                    <div className="text-left">
-
-                        {renderFilters()}
-                    </div>
-                </div>
-                {/* === FIN: Nuevo Contenedor Unificado === */}
+                <h2 className={styles.title}>Catálogo Corporativo</h2>
 
                 <div ref={scrollAnchorRef} style={{ height: 0, margin: 0, padding: 0 }} />
-                <div ref={filterBarRef} className={`${styles.stickyFilterBar} ${showStickyFilters ? styles.stickyFilterBarOpen : ''}`}>
-                    {showStickyFilters && <div className={styles.filterBackdrop} onClick={() => setShowStickyFilters(false)} />}
-                    <div className={styles.controlsRow}>
+                <div ref={filterBarRef} className={styles.stickyFilterBar}>
+                    {/* Top Row: Counts & Sort */}
+                    <div className={styles.controlsRow} style={{ paddingBottom: '0.5rem', borderBottom: '1px solid #f1f5f9' }}>
                         <div className={`${styles.productCountContainer} ${animateCount ? styles.countAnimating : ''}`}>
                             {filteredProducts.length} <span className={styles.mobileIcon}><FaGift /></span><span className={styles.desktopText}> Productos</span> Encontrados
                         </div>
 
-                        <div style={{ position: 'relative' }}>
-                            <button
-                                onClick={() => setShowSortDropdown(!showSortDropdown)}
-                                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'white', border: '1px solid #e2e8f0', padding: '0.5rem 0.75rem', borderRadius: '0.5rem', cursor: 'pointer', color: '#4b5563', fontSize: '0.9rem', fontWeight: 600 }}
-                            >
-                                Ordenar <FaSort />
-                            </button>
-                            {showSortDropdown && (
-                                <div style={{
-                                    position: 'absolute',
-                                    top: '100%',
-                                    left: 0,
-                                    marginTop: '0.5rem',
-                                    backgroundColor: 'white',
-                                    border: '1px solid #e2e8f0',
-                                    borderRadius: '0.5rem',
-                                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-                                    zIndex: 50,
-                                    minWidth: '150px',
-                                    overflow: 'hidden'
-                                }}>
-                                    <button
-                                        onClick={() => { setSortOrder('default'); setShowSortDropdown(false); }}
-                                        style={{ display: 'block', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', background: sortOrder === 'default' ? '#f3f4f6' : 'white', border: 'none', cursor: 'pointer', fontSize: '0.9rem', color: '#374151' }}
-                                    >
-                                        Por defecto
-                                    </button>
-                                    <button
-                                        onClick={() => { setSortOrder('price-asc'); setShowSortDropdown(false); }}
-                                        style={{ display: 'block', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', background: sortOrder === 'price-asc' ? '#f3f4f6' : 'white', border: 'none', cursor: 'pointer', fontSize: '0.9rem', color: '#374151' }}
-                                    >
-                                        Menor precio
-                                    </button>
-                                    <button
-                                        onClick={() => { setSortOrder('price-desc'); setShowSortDropdown(false); }}
-                                        style={{ display: 'block', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', background: sortOrder === 'price-desc' ? '#f3f4f6' : 'white', border: 'none', cursor: 'pointer', fontSize: '0.9rem', color: '#374151' }}
-                                    >
-                                        Mayor precio
-                                    </button>
-                                </div>
-                            )}
-                        </div>
 
-                        <button
-                            onClick={handleFilterClick}
-                            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: showStickyFilters ? '#f3f4f6' : 'white', border: '1px solid #e2e8f0', padding: '0.5rem 0.75rem', borderRadius: '0.5rem', cursor: 'pointer', color: '#4b5563', fontSize: '0.9rem', fontWeight: 600 }}
-                        >
-                            <FaFilter /> Filtrar
-                        </button>
-                    </div>
-                    <div className={styles.filterSummary}>
-                        {(() => {
-                            const allKitsSelected = selectedKitTypes.length === kitTypeFilters.length;
-                            const allPricesSelected = selectedPrice.length === priceFilters.length;
-
-                            if (allKitsSelected && allPricesSelected) {
-                                return 'Viendo: Todos';
-                            }
-
-                            const activeLabels = [
-                                // ...selectedExperiences,
-                                ...selectedKitTypes,
-                                ...priceFilters.filter(p => selectedPrice.includes(p.category)).map(p => p.label.split(' (')[0])
-                            ];
-                            return activeLabels.length > 0 ? `Viendo: ${activeLabels.join(' • ')}` : 'Viendo: Todos los productos';
-                        })()}
                     </div>
 
-                    {/* Dropdown de Filtros */}
-                    {showStickyFilters && (
-                        <div className={styles.filterDropdown}>
-                            {renderFilters()}
-                            <div className={styles.filterFooter}>
+                    {/* Bottom Row: Quick Filters (Bubbles) */}
+                    <div className={styles.quickFilterContainer}>
+                        {/* Product Type Bubbles */}
+                        {/* Product Type Bubbles */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <div style={{ position: 'relative', zIndex: 51 }}>
                                 <button
-                                    onClick={handleClearFilters}
-                                    className="cta-button cta-button--secondary flex items-center gap-2 shadow-md justify-center"
+                                    onClick={() => setShowSortDropdown(!showSortDropdown)}
+                                    style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'white', border: '1px solid #e2e8f0', padding: '0.4rem 0.75rem', borderRadius: '0.5rem', cursor: 'pointer', color: '#4b5563', fontSize: '0.85rem', fontWeight: 600 }}
                                 >
-                                    <FaTrash className="text-sm" /> Limpiar
+                                    <span className={styles.mobileText}>
+                                        <FaDollarSign />
+                                    </span>
+                                    <span className={styles.desktopText}>Ordenar</span>
+                                    <FaSort />
                                 </button>
-                                <button
-                                    onClick={() => {
-                                        // setSelectedExperiences(experienceFilters);
-                                        setSelectedKitTypes(kitTypeFilters);
-                                        setSelectedPrice(priceFilters.map(p => p.category));
-                                    }}
-                                    className="cta-button cta-button--blue flex items-center gap-2 shadow-md justify-center"
-                                >
-                                    <FaGift className="text-sm" /> Todos
-                                </button>
+                                {showSortDropdown && (
+                                    <div style={{
+                                        position: 'absolute',
+                                        top: '100%',
+                                        left: 0,
+                                        marginTop: '0.5rem',
+                                        backgroundColor: 'white',
+                                        border: '1px solid #e2e8f0',
+                                        borderRadius: '0.5rem',
+                                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                                        zIndex: 50,
+                                        minWidth: '150px',
+                                        overflow: 'hidden'
+                                    }}>
+                                        <button
+                                            onClick={() => { setSortOrder('default'); setShowSortDropdown(false); }}
+                                            style={{ display: 'block', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', background: sortOrder === 'default' ? '#f3f4f6' : 'white', border: 'none', cursor: 'pointer', fontSize: '0.9rem', color: '#374151' }}
+                                        >
+                                            Por defecto
+                                        </button>
+                                        <button
+                                            onClick={() => { setSortOrder('price-asc'); setShowSortDropdown(false); }}
+                                            style={{ display: 'block', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', background: sortOrder === 'price-asc' ? '#f3f4f6' : 'white', border: 'none', cursor: 'pointer', fontSize: '0.9rem', color: '#374151' }}
+                                        >
+                                            Menor precio
+                                        </button>
+                                        <button
+                                            onClick={() => { setSortOrder('price-desc'); setShowSortDropdown(false); }}
+                                            style={{ display: 'block', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', background: sortOrder === 'price-desc' ? '#f3f4f6' : 'white', border: 'none', cursor: 'pointer', fontSize: '0.9rem', color: '#374151' }}
+                                        >
+                                            Mayor precio
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
 
-                                <button
-                                    onClick={() => {
-                                        setShowStickyFilters(false);
-                                        // Delay scroll to ensure body overflow is reset
-                                        setTimeout(() => {
-                                            requestAnimationFrame(() => {
-                                                scrollToFilterBar();
-                                            });
-                                        }, 150);
-                                    }}
-                                    className="cta-button flex items-center gap-2 shadow-md justify-center"
-                                >
-                                    <FaCheck /> Aplicar
-                                </button>
+                            <div className={styles.filterRow}>
+                                {kitTypeFilters.map(kit => (
+                                    <button
+                                        key={kit}
+                                        onClick={() => toggleFilter(setSelectedKitTypes, kit)}
+                                        className={`${styles.filterPill} ${selectedKitTypes.includes(kit) ? styles.filterPillActive : ''}`}
+                                    >
+                                        {kit}
+                                    </button>
+                                ))}
                             </div>
                         </div>
-                    )}
+
+
+                    </div>
                 </div>
 
                 <div className={styles.catalogGrid}>
