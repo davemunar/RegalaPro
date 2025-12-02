@@ -35,13 +35,25 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
     const [selectedKitTypes, setSelectedKitTypes] = useState<KitType[]>(initialState?.kitType ? [initialState.kitType] : []);
     const [selectedPrice, setSelectedPrice] = useState<PriceCategory[]>([]);
 
+    const scrollToFilterBar = useCallback(() => {
+        if (scrollAnchorRef.current) {
+            const offset = window.innerWidth < 768 ? 70 : 108;
+            const y = scrollAnchorRef.current.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+    }, []);
+
     // Efecto para actualizar filtros si el usuario navega a la misma página con diferente estado
     useEffect(() => {
         const navigationState = location.state as { kitType?: KitType } | null;
         if (navigationState?.kitType) {
             setSelectedKitTypes([navigationState.kitType]);
+            // Scroll to top of catalog when navigating from footer/external links
+            setTimeout(() => {
+                scrollToFilterBar();
+            }, 100);
         }
-    }, [location.state]);
+    }, [location.state, scrollToFilterBar]);
 
     // --- LÓGICA DE FILTROS CRUZADOS (CRÍTICO) ---
     const isAnchetasDisabled = useMemo(() => {
@@ -77,12 +89,7 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
         );
     }, [selectedPrice, selectedKitTypes, selectedExperiences]);
 
-    const scrollToFilterBar = useCallback(() => {
-        if (scrollAnchorRef.current) {
-            const y = scrollAnchorRef.current.getBoundingClientRect().top + window.scrollY - 108;
-            window.scrollTo({ top: y, behavior: 'smooth' });
-        }
-    }, []);
+
 
     const handleAddToQuoteFromModal = (product: Product, quantity: number, wantsAdvisory: boolean) => {
         addToQuote(product, quantity, wantsAdvisory);
@@ -218,9 +225,9 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
                             <div className={styles.filterFooter}>
                                 <button
                                     onClick={handleClearFilters}
-                                    className="flex items-center gap-2 text-red-500 hover:text-red-700 font-semibold text-sm transition-colors"
+                                    className="cta-button cta-button--secondary flex items-center gap-2 shadow-md justify-center"
                                 >
-                                    <FaTrash /> Limpiar
+                                    <FaTrash className="text-sm" /> Limpiar
                                 </button>
                                 <button
                                     onClick={() => {
@@ -232,7 +239,7 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
                                             });
                                         }, 150);
                                     }}
-                                    className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 font-semibold text-sm transition-colors shadow-sm"
+                                    className="cta-button flex items-center gap-2 shadow-md justify-center"
                                 >
                                     <FaCheck /> Aplicar
                                 </button>
