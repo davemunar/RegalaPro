@@ -524,6 +524,28 @@ main {
   transform: translateY(-2px);
 }
 
+.cta-button--secondary {
+  background-color: #FEF2F2;
+  color: #B91C1C;
+  border: 1px solid #FECACA;
+}
+
+.cta-button--secondary:hover {
+  background-color: #FEE2E2;
+  transform: translateY(-2px);
+}
+
+.cta-button--blue {
+  background-color: #EFF6FF;
+  color: #1D4ED8;
+  border: 1px solid #BFDBFE;
+}
+
+.cta-button--blue:hover {
+  background-color: #DBEAFE;
+  transform: translateY(-2px);
+}
+
 .featured-products {
   padding: 4rem 5%;
   text-align: center;
@@ -1682,6 +1704,7 @@ main {
 .animate-scaleUp {
   animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
 /* Utility to hide marquee on mobile for catalog page */
 @media (max-width: 767px) {
   .marquee-mobile-hidden {

@@ -61,9 +61,7 @@
     transition: transform 0.2s ease;
 }
 
-.filterColumn:first-child {
-    grid-column: 1 / -1;
-}
+
 
 .filterColumn:hover {
     transform: translateY(-2px);
@@ -71,17 +69,18 @@
 
 @media (min-width: 768px) {
     .filterGrid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 3rem;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
     }
 
     .filterColumn {
         padding: 1.5rem;
+        width: 100%;
+        max-width: 350px;
     }
 
-    .filterColumn:first-child {
-        grid-column: auto;
-    }
+
 }
 
 .productCount {
@@ -534,6 +533,10 @@
     color: var(--primary-color);
 }
 
+.mobileText {
+    display: inline;
+}
+
 .desktopText {
     display: none;
 }
@@ -555,6 +558,10 @@
     }
 
     .mobileIcon {
+        display: none;
+    }
+
+    .mobileText {
         display: none;
     }
 
