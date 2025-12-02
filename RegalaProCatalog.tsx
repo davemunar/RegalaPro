@@ -13,7 +13,7 @@ import { FaGift, FaFilter, FaSort, FaTrash, FaCheck } from 'react-icons/fa';
 const priceFilters: { label: string; category: PriceCategory }[] = [
     { label: 'Esencial (hasta $50k)', category: 'Esencial' },
     { label: 'Pro ($50k - $100k)', category: 'Premium' },
-    { label: 'VIP Pro (más de $100k)', category: 'VIP Pro' },
+    { label: 'VIP $100K+', category: 'VIP Pro' },
 ];
 const kitTypeFilters: KitType[] = ['Kits Empresariales', 'Anchetas', 'Promocionales'];
 const experienceFilters: Experience[] = ['Navidad y fin de año', 'Agradecimiento y Lealtad', 'Promoción de Tú Logo / Marca', 'Bienvenida / Onboarding'];
@@ -126,8 +126,8 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
                 <h3 className={styles.filterSubtitle}>Tipo de Kit</h3>
                 <div className={styles.filterOptions}>
                     {kitTypeFilters.map(kit => (
-                        <label key={kit} className={`flex items-center mb-1 text-sm ${kit === 'Anchetas' && isAnchetasDisabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer hover:text-indigo-600 transition-colors'}`}>
-                            <input type="checkbox" checked={selectedKitTypes.includes(kit)} onChange={() => toggleFilter(setSelectedKitTypes, kit)} disabled={isAnchetasDisabled && kit === 'Anchetas'} className="mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                        <label key={kit} className={`flex items-center mb-1 text-xs whitespace-nowrap ${kit === 'Anchetas' && isAnchetasDisabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer hover:text-indigo-600 transition-colors'}`}>
+                            <input type="checkbox" checked={selectedKitTypes.includes(kit)} onChange={() => toggleFilter(setSelectedKitTypes, kit)} disabled={isAnchetasDisabled && kit === 'Anchetas'} className="mr-2 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
                             {kit}
                         </label>
                     ))}
@@ -137,8 +137,8 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
                 <h3 className={styles.filterSubtitle}>Presupuesto</h3>
                 <div className={styles.filterOptions}>
                     {priceFilters.map(p => (
-                        <label key={p.category} className="flex items-center mb-1 text-sm cursor-pointer hover:text-indigo-600 transition-colors whitespace-nowrap">
-                            <input type="checkbox" checked={selectedPrice.includes(p.category)} onChange={() => toggleFilter(setSelectedPrice, p.category)} className="mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                        <label key={p.category} className="flex items-center mb-1 text-xs cursor-pointer hover:text-indigo-600 transition-colors whitespace-nowrap">
+                            <input type="checkbox" checked={selectedPrice.includes(p.category)} onChange={() => toggleFilter(setSelectedPrice, p.category)} className="mr-2 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
                             {p.label}
                         </label>
                     ))}
@@ -175,7 +175,7 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
                 <div className={styles.filterContainer}>
                     <h2 className={styles.title}>Catálogo Corporativo</h2>
                     <div className="text-left">
-                        <h2 className={styles.filterTitle}>Filtrar Regalos Por:</h2>
+
                         {renderFilters()}
                     </div>
                 </div>
