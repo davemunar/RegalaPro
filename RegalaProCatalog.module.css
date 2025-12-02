@@ -55,16 +55,9 @@
 
 .filterGrid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
     text-align: left;
-}
-
-@media (min-width: 768px) {
-    .filterGrid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 3rem;
-    }
 }
 
 .filterOptions {
@@ -75,13 +68,32 @@
 
 .filterColumn {
     background-color: var(--background-soft);
-    padding: 1.5rem;
+    padding: 0.75rem;
     border-radius: 0.75rem;
     transition: transform 0.2s ease;
 }
 
+.filterColumn:first-child {
+    grid-column: 1 / -1;
+}
+
 .filterColumn:hover {
     transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+    .filterGrid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+    }
+
+    .filterColumn {
+        padding: 1.5rem;
+    }
+
+    .filterColumn:first-child {
+        grid-column: auto;
+    }
 }
 
 .productCount {
@@ -463,9 +475,10 @@
     z-index: 40;
     background-color: #ffffff;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0;
+    /* Removed padding to allow full-width dropdown */
     margin-top: 2rem;
     margin-bottom: 1.5rem;
     border-top: 1px solid #e2e8f0;
@@ -473,10 +486,62 @@
     margin-left: -1rem;
     /* Counteract p-4 */
     margin-right: -1rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    /* Removed padding-left/right from here */
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     transition: box-shadow 0.3s ease;
+}
+
+.stickyFilterBarOpen {
+    z-index: 10000 !important;
+}
+
+.filterBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    cursor: default;
+}
+
+.controlsRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    background-color: #fff;
+    padding: 0.75rem 1.5rem 0 1.5rem;
+    /* Moved padding here */
+}
+
+.filterSummary {
+    font-size: 0.75rem;
+    color: #6b7280;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
+    background-color: #fff;
+    padding: 0 1.5rem 0.75rem 1.5rem;
+    /* Moved padding here */
+}
+
+.mobileIcon {
+    display: inline-block;
+    margin-left: 0.25rem;
+    margin-bottom: 0.2rem;
+    color: var(--primary-color);
+}
+
+.desktopText {
+    display: none;
 }
 
 @media (min-width: 768px) {
@@ -484,7 +549,46 @@
         margin-left: -2rem;
         /* Counteract p-8 */
         margin-right: -2rem;
+        /* Removed padding adjustments from here */
+    }
+
+    .controlsRow,
+    .filterSummary {
         padding-left: 2.5rem;
         padding-right: 2.5rem;
     }
+
+    .mobileIcon {
+        display: none;
+    }
+
+    .desktopText {
+        display: inline;
+    }
+}
+
+.filterDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    padding: 1.5rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-top: 1px solid #e2e8f0;
+    z-index: 30;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+}
+
+.filterFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+    gap: 1rem;
 }

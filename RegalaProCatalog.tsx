@@ -1,18 +1,15 @@
-
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductCardForCatalog from './ProductCardForCatalog';
-import { allProducts } from './productData'; // Importamos los datos actualizados con múltiples imágenes
+import { allProducts } from './productData';
 import { Product, PriceCategory, KitType, Experience } from './types';
-import styles from './RegalaProCatalog.module.css'; // Importamos nuestro módulo de estilos
-import ProductDetailModal from './ProductDetailModal'; // Importamos el modal
-import { useQuote } from './useQuote'; // Importamos el hook del carrito
-import CatalogScrollToTop from './CatalogScrollToTop'; // Importamos el botón de scroll
-import { FaGift, FaFilter, FaSort } from 'react-icons/fa';
-// --- 1. DEFINICIÓN DE TIPOS Y DATOS ---
+import styles from './RegalaProCatalog.module.css';
+import ProductDetailModal from './ProductDetailModal';
+import { useQuote } from './useQuote';
+import CatalogScrollToTop from './CatalogScrollToTop';
+import { FaGift, FaFilter, FaSort, FaTrash, FaCheck } from 'react-icons/fa';
 
-// Tipos de Categorías
-// Datos para los filtros
+// --- 1. DEFINICIÓN DE TIPOS Y DATOS ---
 const priceFilters: { label: string; category: PriceCategory }[] = [
     { label: 'Esencial (hasta $50k)', category: 'Esencial' },
     { label: 'Premium ($50k - $100k)', category: 'Premium' },
@@ -20,7 +17,6 @@ const priceFilters: { label: string; category: PriceCategory }[] = [
 ];
 const kitTypeFilters: KitType[] = ['Kits Empresariales', 'Anchetas', 'Promocionales'];
 const experienceFilters: Experience[] = ['Navidad y fin de año', 'Agradecimiento y Lealtad', 'Promoción de Tú Logo / Marca', 'Bienvenida / Onboarding'];
-
 
 interface RegalaProCatalogProps {
     className?: string;
@@ -30,11 +26,13 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
     const location = useLocation();
     const { addToQuote } = useQuote();
     const [activeProduct, setActiveProduct] = useState<Product | null>(null);
+    const [showStickyFilters, setShowStickyFilters] = useState(false);
+    const filterBarRef = useRef<HTMLDivElement>(null);
 
     const initialState = location.state as { kitType?: KitType } | null;
-    const [selectedExperiences, setSelectedExperiences] = useState<Experience[]>(experienceFilters);
-    const [selectedKitTypes, setSelectedKitTypes] = useState<KitType[]>(initialState?.kitType ? [initialState.kitType] : kitTypeFilters);
-    const [selectedPrice, setSelectedPrice] = useState<PriceCategory[]>(priceFilters.map(p => p.category));
+    const [selectedExperiences, setSelectedExperiences] = useState<Experience[]>([]);
+    const [selectedKitTypes, setSelectedKitTypes] = useState<KitType[]>(initialState?.kitType ? [initialState.kitType] : []);
+    const [selectedPrice, setSelectedPrice] = useState<PriceCategory[]>([]);
 
     // Efecto para actualizar filtros si el usuario navega a la misma página con diferente estado
     useEffect(() => {
@@ -43,7 +41,6 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
             setSelectedKitTypes([navigationState.kitType]);
         }
     }, [location.state]);
-
 
     // --- LÓGICA DE FILTROS CRUZADOS (CRÍTICO) ---
     const isAnchetasDisabled = useMemo(() => {
@@ -81,8 +78,72 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
 
     const handleAddToQuoteFromModal = (product: Product, quantity: number, wantsAdvisory: boolean) => {
         addToQuote(product, quantity, wantsAdvisory);
-        setActiveProduct(null); // Cierra el modal después de agregar
+        setActiveProduct(null);
     };
+
+    const handleClearFilters = () => {
+        setSelectedExperiences([]);
+        setSelectedKitTypes([]);
+        setSelectedPrice([]);
+    };
+
+    const handleFilterClick = () => {
+        if (!showStickyFilters && filterBarRef.current) {
+            const y = filterBarRef.current.getBoundingClientRect().top + window.scrollY - 108;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+        setShowStickyFilters(!showStickyFilters);
+    };
+
+    const renderFilters = () => (
+        <div className={styles.filterGrid}>
+            <div className={styles.filterColumn}>
+                <h3 className={styles.filterSubtitle}>Experiencia</h3>
+                <div className={styles.filterOptions}>
+                    {experienceFilters.map(exp => (
+                        <label key={exp} className={`flex items-center mb-1 text-sm ${exp === 'Bienvenida / Onboarding' && isBienvenidaDisabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer hover:text-indigo-600 transition-colors'}`}>
+                            <input type="checkbox" checked={selectedExperiences.includes(exp)} onChange={() => toggleFilter(setSelectedExperiences, exp)} disabled={isBienvenidaDisabled && exp === 'Bienvenida / Onboarding'} className="mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                            {exp}
+                        </label>
+                    ))}
+                </div>
+            </div>
+            <div className={styles.filterColumn}>
+                <h3 className={styles.filterSubtitle}>Tipo de Kit</h3>
+                <div className={styles.filterOptions}>
+                    {kitTypeFilters.map(kit => (
+                        <label key={kit} className={`flex items-center mb-1 text-sm ${kit === 'Anchetas' && isAnchetasDisabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer hover:text-indigo-600 transition-colors'}`}>
+                            <input type="checkbox" checked={selectedKitTypes.includes(kit)} onChange={() => toggleFilter(setSelectedKitTypes, kit)} disabled={isAnchetasDisabled && kit === 'Anchetas'} className="mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                            {kit}
+                        </label>
+                    ))}
+                </div>
+            </div>
+            <div className={styles.filterColumn}>
+                <h3 className={styles.filterSubtitle}>Presupuesto</h3>
+                <div className={styles.filterOptions}>
+                    {priceFilters.map(p => (
+                        <label key={p.category} className="flex items-center mb-1 text-sm cursor-pointer hover:text-indigo-600 transition-colors">
+                            <input type="checkbox" checked={selectedPrice.includes(p.category)} onChange={() => toggleFilter(setSelectedPrice, p.category)} className="mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                            {p.label}
+                        </label>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+
+    // Bloquear scroll del body cuando los filtros están abiertos
+    useEffect(() => {
+        if (showStickyFilters) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [showStickyFilters]);
 
     return (
         <div className={`${styles.catalogContainer} ${className}`}>
@@ -92,57 +153,60 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
                     <h2 className={styles.title}>Catálogo Corporativo</h2>
                     <div className="text-left">
                         <h2 className={styles.filterTitle}>Filtrar Regalos Por:</h2>
-                        <div className={styles.filterGrid}>
-                            <div className={styles.filterColumn}>
-                                <h3 className={styles.filterSubtitle}>Experiencia</h3>
-                                <div className={styles.filterOptions}>
-                                    {experienceFilters.map(exp => (
-                                        <label key={exp} className={`flex items-center mb-1 text-sm ${exp === 'Bienvenida / Onboarding' && isBienvenidaDisabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer hover:text-indigo-600 transition-colors'}`}>
-                                            <input type="checkbox" checked={selectedExperiences.includes(exp)} onChange={() => toggleFilter(setSelectedExperiences, exp)} disabled={isBienvenidaDisabled && exp === 'Bienvenida / Onboarding'} className="mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                            {exp}
-                                        </label>
-                                    ))}
-                                </div>
-                            </div>
-                            <div className={styles.filterColumn}>
-                                <h3 className={styles.filterSubtitle}>Tipo de Kit</h3>
-                                <div className={styles.filterOptions}>
-                                    {kitTypeFilters.map(kit => (
-                                        <label key={kit} className={`flex items-center mb-1 text-sm ${kit === 'Anchetas' && isAnchetasDisabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer hover:text-indigo-600 transition-colors'}`}>
-                                            <input type="checkbox" checked={selectedKitTypes.includes(kit)} onChange={() => toggleFilter(setSelectedKitTypes, kit)} disabled={isAnchetasDisabled && kit === 'Anchetas'} className="mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                            {kit}
-                                        </label>
-                                    ))}
-                                </div>
-                            </div>
-                            <div className={styles.filterColumn}>
-                                <h3 className={styles.filterSubtitle}>Presupuesto</h3>
-                                <div className={styles.filterOptions}>
-                                    {priceFilters.map(p => (
-                                        <label key={p.category} className="flex items-center mb-1 text-sm cursor-pointer hover:text-indigo-600 transition-colors">
-                                            <input type="checkbox" checked={selectedPrice.includes(p.category)} onChange={() => toggleFilter(setSelectedPrice, p.category)} className="mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                            {p.label}
-                                        </label>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
+                        {renderFilters()}
                     </div>
                 </div>
                 {/* === FIN: Nuevo Contenedor Unificado === */}
 
-                <div className={styles.stickyFilterBar}>
-                    <button style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', background: 'white', border: '1px solid #e2e8f0', padding: '0.4rem 0.6rem', borderRadius: '0.5rem', cursor: 'pointer', color: '#4b5563', fontSize: '0.85rem', fontWeight: 600 }}>
-                        <FaFilter /> Filtrar
-                    </button>
+                <div ref={filterBarRef} className={`${styles.stickyFilterBar} ${showStickyFilters ? styles.stickyFilterBarOpen : ''}`}>
+                    {showStickyFilters && <div className={styles.filterBackdrop} onClick={() => setShowStickyFilters(false)} />}
+                    <div className={styles.controlsRow}>
+                        <div style={{ fontWeight: 600, color: 'var(--text-dark)', fontSize: '0.85rem' }}>
+                            {filteredProducts.length} <span className={styles.mobileIcon}><FaGift /></span><span className={styles.desktopText}> Productos</span> Encontrados
+                        </div>
 
-                    <button style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', background: 'white', border: '1px solid #e2e8f0', padding: '0.4rem 0.6rem', borderRadius: '0.5rem', cursor: 'pointer', color: '#4b5563', fontSize: '0.85rem', fontWeight: 600 }}>
-                        Ordenar <FaSort />
-                    </button>
+                        <button style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'white', border: '1px solid #e2e8f0', padding: '0.5rem 0.75rem', borderRadius: '0.5rem', cursor: 'pointer', color: '#4b5563', fontSize: '0.9rem', fontWeight: 600 }}>
+                            Ordenar <FaSort />
+                        </button>
 
-                    <div style={{ fontWeight: 600, color: 'var(--text-dark)', fontSize: '0.9rem' }}>
-                        {filteredProducts.length} <span style={{ display: 'inline-block', marginLeft: '0.1rem', marginBottom: '0.1rem' }}><FaGift /></span>
+                        <button
+                            onClick={handleFilterClick}
+                            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: showStickyFilters ? '#f3f4f6' : 'white', border: '1px solid #e2e8f0', padding: '0.5rem 0.75rem', borderRadius: '0.5rem', cursor: 'pointer', color: '#4b5563', fontSize: '0.9rem', fontWeight: 600 }}
+                        >
+                            <FaFilter /> Filtrar
+                        </button>
                     </div>
+                    <div className={styles.filterSummary}>
+                        {(() => {
+                            const activeLabels = [
+                                ...selectedExperiences,
+                                ...selectedKitTypes,
+                                ...priceFilters.filter(p => selectedPrice.includes(p.category)).map(p => p.label.split(' (')[0])
+                            ];
+                            return activeLabels.length > 0 ? `Viendo: ${activeLabels.join(' • ')}` : 'Viendo: Todos los productos';
+                        })()}
+                    </div>
+
+                    {/* Dropdown de Filtros */}
+                    {showStickyFilters && (
+                        <div className={styles.filterDropdown}>
+                            {renderFilters()}
+                            <div className={styles.filterFooter}>
+                                <button
+                                    onClick={handleClearFilters}
+                                    className="flex items-center gap-2 text-red-500 hover:text-red-700 font-semibold text-sm transition-colors"
+                                >
+                                    <FaTrash /> Limpiar
+                                </button>
+                                <button
+                                    onClick={() => setShowStickyFilters(false)}
+                                    className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 font-semibold text-sm transition-colors shadow-sm"
+                                >
+                                    <FaCheck /> Aplicar
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 <div className={styles.catalogGrid}>
