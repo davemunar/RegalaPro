@@ -592,3 +592,32 @@
     border-top: 1px solid #e2e8f0;
     gap: 1rem;
 }
+
+@keyframes countPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+        color: #4f46e5;
+        /* Indigo 600 */
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.countAnimating {
+    animation: countPulse 0.3s ease-in-out;
+    display: inline-block;
+    /* Required for transform to work */
+}
+
+.productCountContainer {
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 0.85rem;
+    transition: color 0.3s ease;
+}

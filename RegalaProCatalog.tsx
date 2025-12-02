@@ -76,6 +76,20 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
         );
     }, [selectedPrice, selectedKitTypes, selectedExperiences]);
 
+    const scrollToFilterBar = useCallback(() => {
+        if (filterBarRef.current && filterBarRef.current.offsetParent) {
+            const element = filterBarRef.current;
+            const parent = element.offsetParent as HTMLElement;
+            // Calculate absolute position: parent's absolute top + element's offset relative to parent
+            const parentTop = parent.getBoundingClientRect().top + window.scrollY;
+            const elementTop = parentTop + element.offsetTop;
+            // Target: element's top minus the sticky offset (108px)
+            const targetY = elementTop - 108;
+
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+        }
+    }, []);
+
     const handleAddToQuoteFromModal = (product: Product, quantity: number, wantsAdvisory: boolean) => {
         addToQuote(product, quantity, wantsAdvisory);
         setActiveProduct(null);
@@ -85,12 +99,16 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
         setSelectedExperiences([]);
         setSelectedKitTypes([]);
         setSelectedPrice([]);
+        setShowStickyFilters(false);
+        // Delay scroll to ensure body overflow is reset
+        setTimeout(() => {
+            scrollToFilterBar();
+        }, 100);
     };
 
     const handleFilterClick = () => {
-        if (!showStickyFilters && filterBarRef.current) {
-            const y = filterBarRef.current.getBoundingClientRect().top + window.scrollY - 108;
-            window.scrollTo({ top: y, behavior: 'smooth' });
+        if (!showStickyFilters) {
+            scrollToFilterBar();
         }
         setShowStickyFilters(!showStickyFilters);
     };
@@ -145,6 +163,15 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
         };
     }, [showStickyFilters]);
 
+    // Animación del contador de productos
+    const [animateCount, setAnimateCount] = useState(false);
+
+    useEffect(() => {
+        setAnimateCount(true);
+        const timer = setTimeout(() => setAnimateCount(false), 300);
+        return () => clearTimeout(timer);
+    }, [filteredProducts.length]);
+
     return (
         <div className={`${styles.catalogContainer} ${className}`}>
             <div className="p-4 md:p-8 relative">
@@ -161,7 +188,7 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
                 <div ref={filterBarRef} className={`${styles.stickyFilterBar} ${showStickyFilters ? styles.stickyFilterBarOpen : ''}`}>
                     {showStickyFilters && <div className={styles.filterBackdrop} onClick={() => setShowStickyFilters(false)} />}
                     <div className={styles.controlsRow}>
-                        <div style={{ fontWeight: 600, color: 'var(--text-dark)', fontSize: '0.85rem' }}>
+                        <div className={`${styles.productCountContainer} ${animateCount ? styles.countAnimating : ''}`}>
                             {filteredProducts.length} <span className={styles.mobileIcon}><FaGift /></span><span className={styles.desktopText}> Productos</span> Encontrados
                         </div>
 
@@ -199,7 +226,13 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
                                     <FaTrash /> Limpiar
                                 </button>
                                 <button
-                                    onClick={() => setShowStickyFilters(false)}
+                                    onClick={() => {
+                                        setShowStickyFilters(false);
+                                        // Delay scroll to ensure body overflow is reset
+                                        setTimeout(() => {
+                                            scrollToFilterBar();
+                                        }, 100);
+                                    }}
                                     className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 font-semibold text-sm transition-colors shadow-sm"
                                 >
                                     <FaCheck /> Aplicar
