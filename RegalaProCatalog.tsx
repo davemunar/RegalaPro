@@ -255,6 +255,13 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
                     </div>
                     <div className={styles.filterSummary}>
                         {(() => {
+                            const allKitsSelected = selectedKitTypes.length === kitTypeFilters.length;
+                            const allPricesSelected = selectedPrice.length === priceFilters.length;
+
+                            if (allKitsSelected && allPricesSelected) {
+                                return 'Viendo: Todos';
+                            }
+
                             const activeLabels = [
                                 // ...selectedExperiences,
                                 ...selectedKitTypes,
