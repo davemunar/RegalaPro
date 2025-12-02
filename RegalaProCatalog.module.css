@@ -475,8 +475,8 @@
 
 .stickyFilterBar {
     position: sticky;
-    top: 108px;
-    /* Header (70px) + Marquee (~38px) */
+    top: 70px;
+    /* Header (70px) - Marquee hidden on mobile */
     z-index: 40;
     background-color: #ffffff;
     display: flex;
@@ -551,6 +551,8 @@
 
 @media (min-width: 768px) {
     .stickyFilterBar {
+        top: 108px;
+        /* Header + Marquee on desktop */
         margin-left: -2rem;
         /* Counteract p-8 */
         margin-right: -2rem;

@@ -1682,3 +1682,9 @@ main {
 .animate-scaleUp {
   animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+/* Utility to hide marquee on mobile for catalog page */
+@media (max-width: 767px) {
+  .marquee-mobile-hidden {
+    display: none !important;
+  }
+}

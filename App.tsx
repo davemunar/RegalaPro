@@ -30,11 +30,13 @@ const ConditionalCta: React.FC = () => {
 };
 
 const AppContent: React.FC = () => {
+  const location = useLocation();
+
   return (
     <>
       <ScrollToTop />
       <Header />
-      <Marquee className="" />
+      <Marquee className={location.pathname === '/products' ? 'marquee-mobile-hidden' : ''} />
       <main className="min-h-screen">
         <Routes>
           <Route path="/" element={<Home />} />
