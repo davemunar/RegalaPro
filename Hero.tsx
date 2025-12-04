@@ -15,21 +15,24 @@ const slides = [
         desktop: imgH1full,
         title: 'Kits Empresariales',
         subtitle: 'Encuentra el detalle perfecto de reconocimiento para tus colaboradores y clientes VIP.',
-        alt: 'Personas en una reunión de negocios'
+        alt: 'Personas en una reunión de negocios',
+        linkState: { kitType: 'Kits Empresariales' }
     },
     {
         mobile: imgH2small,
         desktop: imgH2full,
         title: 'Anchetas Gourmet',
         subtitle: 'En esta navidad regala productos que reflejen la excelencia de tu marca.',
-        alt: 'Productos de alta calidad en exhibición'
+        alt: 'Productos de alta calidad en exhibición',
+        linkState: { kitType: 'Anchetas' }
     },
     {
         mobile: smallHero3,
         desktop: imgHero3v2,
         title: 'Personalización de impacto!',
         subtitle: 'Adaptamos cada detalle a la identidad de tu empresa.',
-        alt: 'Proceso de personalización de un regalo'
+        alt: 'Proceso de personalización de un regalo',
+        linkState: { kitType: 'Promocionales' }
     }
 ];
 
@@ -39,8 +42,8 @@ const Hero: React.FC = () => {
     const { quoteItemCount } = useQuote();
     const navigate = useNavigate();
 
-    const handleCtaClick = () => {
-        navigate('/products');
+    const handleCtaClick = (state?: any) => {
+        navigate('/products', { state });
     };
 
     useEffect(() => {
@@ -93,7 +96,7 @@ const Hero: React.FC = () => {
                         <div className="hero__content">
                             <h1 className="hero__title">{slide.title}</h1>
                             <p className="hero__subtitle">{slide.subtitle}</p>
-                            <button onClick={handleCtaClick} className="cta-button">Ver Catálogo</button>
+                            <button onClick={() => handleCtaClick((slide as any).linkState)} className="cta-button">Ver Catálogo</button>
                         </div>
                     </div>
                 ))}

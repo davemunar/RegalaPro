@@ -15,9 +15,9 @@ const Header: React.FC = () => {
     };
 
     const navLinks = [
-        { name: 'Promocionales', href: '/products', state: { kitType: 'Promocionales' }, icon: <FaRegistered /> },
         { name: 'Kits', href: '/products', state: { kitType: 'Kits Empresariales' }, icon: <FaGift /> },
         { name: 'Anchetas', href: '/products', state: { kitType: 'Anchetas' }, icon: <FaShoppingBasket /> },
+        { name: 'Promocionales', href: '/products', state: { kitType: 'Promocionales' }, icon: <FaRegistered /> },
         { name: 'Contacto', href: '#page-footer', icon: null },
     ];
 

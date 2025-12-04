@@ -52,3 +52,11 @@
     flex-shrink: 0; /* Evita que las tarjetas se compriman */
   }
 }
+
+/* CAMBIO 7: Agregar al final de index.css */
+/* Estilos para la imagen del producto en la página de cotización */
+.quote-item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Asegura que la imagen cubra el contenedor sin distorsionarse */
+}

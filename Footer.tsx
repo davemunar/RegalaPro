@@ -12,16 +12,16 @@ const Footer: React.FC = () => {
                     <h2 className="footer__heading">Catálogo 2025</h2>
                     <ul className="footer__links footer__links--icons">
                         <li className="footer__link-item">
-                            <FaRegistered />
-                            <Link to="/products" state={{ kitType: 'Promocionales' }}>Productos Promocionales</Link>
-                        </li>
-                        <li className="footer__link-item">
                             <FaGift />
                             <Link to="/products" state={{ kitType: 'Kits Empresariales' }}>Kits Empresariales</Link>
                         </li>
                         <li className="footer__link-item">
                             <FaShoppingBasket />
                             <Link to="/products" state={{ kitType: 'Anchetas' }}>Anchetas Gourmet</Link>
+                        </li>
+                        <li className="footer__link-item">
+                            <FaRegistered />
+                            <Link to="/products" state={{ kitType: 'Promocionales' }}>Productos Promocionales</Link>
                         </li>
                     </ul>
                 </div>

@@ -109,14 +109,7 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
 
 
 
-    // Animación del contador de productos
-    const [animateCount, setAnimateCount] = useState(false);
 
-    useEffect(() => {
-        setAnimateCount(true);
-        const timer = setTimeout(() => setAnimateCount(false), 300);
-        return () => clearTimeout(timer);
-    }, [filteredProducts.length]);
 
     return (
         <div className={`${styles.catalogContainer} ${className}`}>
@@ -126,13 +119,7 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
                 <div ref={scrollAnchorRef} style={{ height: 0, margin: 0, padding: 0 }} />
                 <div ref={filterBarRef} className={styles.stickyFilterBar}>
                     {/* Top Row: Counts & Sort */}
-                    <div className={styles.controlsRow} style={{ paddingBottom: '0.5rem', borderBottom: '1px solid #f1f5f9' }}>
-                        <div className={`${styles.productCountContainer} ${animateCount ? styles.countAnimating : ''}`}>
-                            {filteredProducts.length} <span className={styles.mobileIcon}><FaGift /></span><span className={styles.desktopText}> Productos</span> Encontrados
-                        </div>
 
-
-                    </div>
 
                     {/* Bottom Row: Quick Filters (Bubbles) */}
                     <div className={styles.quickFilterContainer}>
@@ -165,22 +152,16 @@ const RegalaProCatalog: React.FC<RegalaProCatalogProps> = ({ className }) => {
                                         overflow: 'hidden'
                                     }}>
                                         <button
-                                            onClick={() => { setSortOrder('default'); setShowSortDropdown(false); }}
-                                            style={{ display: 'block', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', background: sortOrder === 'default' ? '#f3f4f6' : 'white', border: 'none', cursor: 'pointer', fontSize: '0.9rem', color: '#374151' }}
-                                        >
-                                            Por defecto
-                                        </button>
-                                        <button
                                             onClick={() => { setSortOrder('price-asc'); setShowSortDropdown(false); }}
                                             style={{ display: 'block', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', background: sortOrder === 'price-asc' ? '#f3f4f6' : 'white', border: 'none', cursor: 'pointer', fontSize: '0.9rem', color: '#374151' }}
                                         >
-                                            Menor precio
+                                            Menor a Mayor
                                         </button>
                                         <button
                                             onClick={() => { setSortOrder('price-desc'); setShowSortDropdown(false); }}
                                             style={{ display: 'block', width: '100%', textAlign: 'left', padding: '0.75rem 1rem', background: sortOrder === 'price-desc' ? '#f3f4f6' : 'white', border: 'none', cursor: 'pointer', fontSize: '0.9rem', color: '#374151' }}
                                         >
-                                            Mayor precio
+                                            Mayor a Menor
                                         </button>
                                     </div>
                                 )}

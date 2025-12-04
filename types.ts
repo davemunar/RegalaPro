@@ -16,5 +16,6 @@ export interface Product {
 
 export interface QuoteItem extends Product {
   quantity: number;
-  wantsAdvisory: boolean;
+  wantsLogo: boolean;
+  selected: boolean;
 }

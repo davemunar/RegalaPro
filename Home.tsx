@@ -76,7 +76,7 @@ const Home: React.FC = () => {
                             Envía un e-mail con una colección personalizada <strong>(por presupuesto, tema o interés)</strong> y deja que el <strong>receptor elija</strong> su detalle favorito entre tus opciones. Solo necesitas su correo electrónico para gestionar la entrega y garantizar <strong>detalles que realmente se aprecian</strong>.
                         </p>
                         <div className="promotional-section__cta-container">
-                            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="cta-button cta-button--secondary bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300">¡Empieza ahora Pro!</a>
+                            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="cta-button py-3 px-6 rounded-lg transition duration-300">¡Empieza ahora Pro!</a>
                         </div>
                     </div>
                 </div>

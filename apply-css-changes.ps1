@@ -55,7 +55,5 @@ $newTestimonialSlide = @"
 
 $content = $content -replace $oldTestimonialSlide, $newTestimonialSlide
 
-# Guardar el archivo
-$content | Set-Content $cssFile -NoNewline
 
-Write-Host "Cambios aplicados exitosamente a index.css" -ForegroundColor Green
+# 
